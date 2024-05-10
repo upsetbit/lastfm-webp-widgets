@@ -3,6 +3,7 @@ package lastfm
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -67,6 +68,11 @@ func (c *LastFMClient) GetRecentTracks() (*LastFMUserRecentTracks, error) {
 	}
 
 	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code %d", res.StatusCode)
+	}
+
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
