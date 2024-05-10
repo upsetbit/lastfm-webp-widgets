@@ -2,8 +2,37 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/upsetbit/lastfm-webp-widgets/pkg/client/lastfm"
 )
 
 func main() {
-	fmt.Println("Hello")
+	lastfmClient, err := lastfm.New(lastfm.LastFMClientOptions{
+		Username: "USERNAME",
+		APIKey:   "APIKEY",
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	res, err := lastfmClient.GetRecentTracks()
+	if err != nil {
+		panic(err)
+	}
+
+	recentTracks := res.RecentTracks
+	fmt.Printf("user: %s\n", recentTracks.Attr.User)
+	fmt.Printf("found %s tracks\n\n", recentTracks.Attr.Total)
+
+	if len(recentTracks.Track) == 0 {
+		return
+	}
+
+	lastListenedTrack := recentTracks.Track[0]
+	if lastListenedTrack.Attr.NowPlaying == "true" {
+		fmt.Printf("now playing: %s\n", lastListenedTrack.Name)
+	} else {
+		fmt.Printf("last listened: %s\n", lastListenedTrack.Name)
+	}
 }
