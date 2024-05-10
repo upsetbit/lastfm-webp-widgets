@@ -1,17 +1,15 @@
 package main
 
 import (
+	_ "github.com/joho/godotenv/autoload"
+
 	"fmt"
 
-	"github.com/upsetbit/lastfm-webp-widgets/pkg/client/lastfm"
+	"github.com/upsetbit/lastfm-webp-widgets/internal/lastfm"
 )
 
 func main() {
-	lastfmClient, err := lastfm.New(lastfm.LastFMClientOptions{
-		Username: "USERNAME",
-		APIKey:   "APIKEY",
-	})
-
+	lastfmClient, err := lastfm.BuildClient()
 	if err != nil {
 		panic(err)
 	}
