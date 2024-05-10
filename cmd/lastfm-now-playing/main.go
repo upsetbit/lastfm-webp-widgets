@@ -1,9 +1,15 @@
 package main
 
 import (
-	"github.com/upsetbit/lastfm-webp-widgets/internal/somelogic"
+	"embed"
+
+	"github.com/upsetbit/lastfm-webp-widgets/internal/webputil"
 )
 
+//go:embed assets/images/test.webp
+var assets embed.FS
+
 func main() {
-	somelogic.Greet()
+	testWebP, _ := assets.ReadFile("assets/images/test.webp")
+	webputil.DoSomething(testWebP)
 }
