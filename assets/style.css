@@ -1,0 +1,117 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url(fonts/Roboto-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto-Light';
+  src: url(fonts/Roboto-Light.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url(fonts/Roboto-Medium.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'RobotoMono-Light';
+  src: url(fonts/RobotoMono-Light.ttf) format('truetype');
+}
+
+body {
+  font-family: 'Roboto';
+  background-color: #0d1117;
+  color: #e6edf3;
+  margin: 0px;
+}
+
+.container {
+  margin: 25px 25px 2px 25px;
+  border-radius: 30px;
+  height: 298px;
+  width: 1080px;
+  background-color: #161b22;
+}
+
+.container-content {
+  padding: 40px;
+}
+
+.album-cover {
+  height: 160px;
+  width: 160px;
+  border-radius: 8px;
+  float: left;
+}
+
+.listening-status {
+  margin-top: 2px;
+  margin-left: 192px;
+  letter-spacing: 3px;
+  font-size: 15px;
+  color: #717880;
+}
+
+.track-title {
+  font-family: 'Roboto-Medium';
+  font-size: 44px;
+  width: 700px;
+  margin-top: 30px;
+  margin-left: 190px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.artist-name {
+  font-family: 'Roboto-Light';
+  font-size: 38px;
+  color: #8b949e;
+  margin-left: 190px;
+}
+
+.user-stats {
+  font-family: 'Roboto';
+  font-size: 18px;
+  margin-top: 2px;
+  float: left;
+  color: #8b949e;
+  letter-spacing: 1px;
+}
+
+.user-url {
+  font-family: 'RobotoMono-Light';
+  font-size: 19px;
+  color: #8b949e;
+  float: right;
+  letter-spacing: 1px;
+}
+
+.separator {
+  border: 1px solid #e6edf3;
+  margin-top: 42px;
+  margin-bottom: 12px;
+}
+
+.powered-by {
+  font-size: 12px;
+  margin-left: 730px;
+  color: #161b22;
+}
+
+.sound-waves {
+  height: 81px;
+  float: right;
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.sound-waves .sound-bar {
+  display: block;
+  position: relative;
+  border-radius: 50px;
+  height: 100%;
+  width: 8px;
+  background-color: #3d4246;
+  margin-right: 4px;
+}
