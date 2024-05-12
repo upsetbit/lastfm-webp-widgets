@@ -1,12 +1,44 @@
 package lastfm
 
-type LastFmScrobbleTimestamp struct {
-	UTS  string `json:"uts"`
+type LastFmImageMetadata struct {
+	Size string `json:"size"`
 	Text string `json:"#text"`
 }
 
-type LastFmAlbumCoverMetadata struct {
-	Size string `json:"size"`
+// -------------------------------------------------------------------------------------------------
+
+type LastFmUserRegistrationDate struct {
+	Unixtime string `json:"unixtime"`
+	Text     int    `json:"#text"`
+}
+
+type LastFmUser struct {
+	Name        string                     `json:"name"`
+	Age         string                     `json:"age"`
+	Subscriber  string                     `json:"subscriber"`
+	RealName    string                     `json:"realname"`
+	Bootstrap   string                     `json:"bootstrap"`
+	PlayCount   string                     `json:"playcount"`
+	ArtistCount string                     `json:"artist_count"`
+	Playlists   string                     `json:"playlists"`
+	TrackCount  string                     `json:"track_count"`
+	AlbumCount  string                     `json:"album_count"`
+	Image       []LastFmImageMetadata      `json:"image"`
+	Registered  LastFmUserRegistrationDate `json:"registered"`
+	Country     string                     `json:"country"`
+	Gender      string                     `json:"gender"`
+	URL         string                     `json:"url"`
+	Type        string                     `json:"type"`
+}
+
+type LastFmUserInfo struct {
+	User LastFmUser `json:"user"`
+}
+
+// -------------------------------------------------------------------------------------------------
+
+type LastFmScrobbleTimestamp struct {
+	UTS  string `json:"uts"`
 	Text string `json:"#text"`
 }
 
@@ -28,15 +60,15 @@ type LastFmTrackAttr struct {
 }
 
 type LastFmTrack struct {
-	Name       string                     `json:"name"`
-	Album      LastFmMusicIdentification  `json:"album"`
-	Artist     LastFmMusicIdentification  `json:"artist"`
-	Image      []LastFmAlbumCoverMetadata `json:"image"`
-	MBID       string                     `json:"mbid"`
-	Streamable string                     `json:"streamable"`
-	URL        string                     `json:"url"`
-	Date       LastFmScrobbleTimestamp    `json:"date"`
-	Attr       LastFmTrackAttr            `json:"@attr"`
+	Name       string                    `json:"name"`
+	Album      LastFmMusicIdentification `json:"album"`
+	Artist     LastFmMusicIdentification `json:"artist"`
+	Image      []LastFmImageMetadata     `json:"image"`
+	MBID       string                    `json:"mbid"`
+	Streamable string                    `json:"streamable"`
+	URL        string                    `json:"url"`
+	Date       LastFmScrobbleTimestamp   `json:"date"`
+	Attr       LastFmTrackAttr           `json:"@attr"`
 }
 
 type LastFmRecentTracks struct {
@@ -44,6 +76,6 @@ type LastFmRecentTracks struct {
 	Track []LastFmTrack  `json:"track"`
 }
 
-type LastFMUserRecentTracks struct {
+type LastFmUserRecentTracks struct {
 	RecentTracks LastFmRecentTracks `json:"recenttracks"`
 }

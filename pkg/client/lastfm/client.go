@@ -9,27 +9,27 @@ import (
 	"strings"
 )
 
-type LastFMClientOptions struct {
+type LastFmClientOptions struct {
 	Username string
 	APIKey   string
 }
 
-type LastFMClient struct {
+type LastFmClient struct {
 	client   *http.Client
 	endpoint string
 	apikey   string
-	username string
+	Username string
 }
 
-func New(opts LastFMClientOptions) (*LastFMClient, error) {
+func New(opts LastFmClientOptions) (*LastFmClient, error) {
 	apikey := strings.TrimSpace(opts.APIKey)
 	if apikey == "" {
 		return nil, errors.New("API key is required")
 	}
 
-	client := LastFMClient{
+	client := LastFmClient{
 		endpoint: "https://ws.audioscrobbler.com/2.0/",
-		username: opts.Username,
+		Username: opts.Username,
 		apikey:   opts.APIKey,
 		client:   &http.Client{},
 	}
@@ -37,7 +37,7 @@ func New(opts LastFMClientOptions) (*LastFMClient, error) {
 	return &client, nil
 }
 
-func (c *LastFMClient) buildRequest(method string) (*http.Request, error) {
+func (c *LastFmClient) buildRequest(method string) (*http.Request, error) {
 	req, err := http.NewRequest("GET", c.endpoint, nil)
 	if err != nil {
 		return nil, err
@@ -47,7 +47,7 @@ func (c *LastFMClient) buildRequest(method string) (*http.Request, error) {
 
 	q := req.URL.Query()
 	q.Add("method", method)
-	q.Add("user", c.username)
+	q.Add("user", c.Username)
 	q.Add("api_key", c.apikey)
 	q.Add("format", "json")
 
@@ -56,8 +56,8 @@ func (c *LastFMClient) buildRequest(method string) (*http.Request, error) {
 	return req, nil
 }
 
-func (c *LastFMClient) GetRecentTracks() (*LastFMUserRecentTracks, error) {
-	req, err := c.buildRequest("user.getrecenttracks")
+func (c *LastFmClient) doAndHandleRequest(method string) ([]byte, error) {
+	req, err := c.buildRequest(method)
 	if err != nil {
 		return nil, err
 	}
@@ -78,9 +78,31 @@ func (c *LastFMClient) GetRecentTracks() (*LastFMUserRecentTracks, error) {
 		return nil, err
 	}
 
-	// fmt.Printf("Response: %s\n", string(body))
+	return body, nil
+}
 
-	var recentTracks LastFMUserRecentTracks
+func (c *LastFmClient) GetUserInfo() (*LastFmUserInfo, error) {
+	body, err := c.doAndHandleRequest("user.getinfo")
+	if err != nil {
+		return nil, err
+	}
+
+	var userInfo LastFmUserInfo
+	err = json.Unmarshal(body, &userInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userInfo, nil
+}
+
+func (c *LastFmClient) GetRecentTracks() (*LastFmUserRecentTracks, error) {
+	body, err := c.doAndHandleRequest("user.getrecenttracks")
+	if err != nil {
+		return nil, err
+	}
+
+	var recentTracks LastFmUserRecentTracks
 	err = json.Unmarshal(body, &recentTracks)
 	if err != nil {
 		return nil, err
