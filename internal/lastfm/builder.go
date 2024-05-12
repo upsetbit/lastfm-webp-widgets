@@ -8,22 +8,22 @@ import (
 )
 
 const (
-	lastfmUsernameEnv = "LASTFM_USERNAME"
-	lastfmAPIKeyEnv   = "LASTFM_API_KEY"
+	env_LastFmUsername = "LASTFM_USERNAME"
+	env_LastFmAPIKey   = "LASTFM_API_KEY"
 )
 
-func BuildClient() (*lastfm.LastFMClient, error) {
-	lastfmUsername, envIsSet := os.LookupEnv(lastfmUsernameEnv)
+func BuildClient() (*lastfm.LastFmClient, error) {
+	lastfmUsername, envIsSet := os.LookupEnv(env_LastFmUsername)
 	if !envIsSet {
-		return nil, fmt.Errorf("environment variable %s is required", lastfmUsernameEnv)
+		return nil, fmt.Errorf("unset env %s", env_LastFmUsername)
 	}
 
-	lastfmApiKey, envIsSet := os.LookupEnv(lastfmAPIKeyEnv)
+	lastfmApiKey, envIsSet := os.LookupEnv(env_LastFmAPIKey)
 	if !envIsSet {
-		return nil, fmt.Errorf("environment variable %s is required", lastfmAPIKeyEnv)
+		return nil, fmt.Errorf("unset env %s", env_LastFmAPIKey)
 	}
 
-	lastfmClient, err := lastfm.New(lastfm.LastFMClientOptions{
+	lastfmClient, err := lastfm.New(lastfm.LastFmClientOptions{
 		Username: lastfmUsername,
 		APIKey:   lastfmApiKey,
 	})
