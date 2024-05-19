@@ -5,11 +5,11 @@ import (
 
 	"fmt"
 
-	"github.com/upsetbit/lastfm-webp-widgets/internal/lastfm"
+	lastFmBuilder "github.com/upsetbit/lastfm-webp-widgets/internal/lastfm_builder"
 )
 
 func main() {
-	lastfmClient, err := lastfm.BuildClient()
+	lastfmClient, err := lastFmBuilder.Build()
 	if err != nil {
 		panic(err)
 	}

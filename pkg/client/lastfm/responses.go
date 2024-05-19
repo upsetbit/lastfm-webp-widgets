@@ -9,7 +9,7 @@ type LastFmImageMetadata struct {
 
 type LastFmUserRegistrationDate struct {
 	Unixtime string `json:"unixtime"`
-	Text     int    `json:"#text"`
+	Text     int64  `json:"#text"`
 }
 
 type LastFmUser struct {

@@ -1,4 +1,4 @@
-package lastfm
+package lastFmClientBuilder
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ const (
 	env_LastFmAPIKey   = "LASTFM_API_KEY"
 )
 
-func BuildClient() (*lastfm.LastFmClient, error) {
+func Build() (*lastfm.LastFmClient, error) {
 	lastfmUsername, envIsSet := os.LookupEnv(env_LastFmUsername)
 	if !envIsSet {
 		return nil, fmt.Errorf("unset env %s", env_LastFmUsername)

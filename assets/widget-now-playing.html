@@ -1,15 +1,16 @@
 <html>
   <head>
-    <link rel="stylesheet" href="style.css">
-    <script src="sound-waves.js" defer></script>
-    <script src="track-title-scroll.js" defer></script>
+    <link rel="stylesheet" href="./style/dark.css">
+
+    <script src="./js/component/user.js" defer></script>
+    <script src="./js/component/music.js" defer></script>
+    <script src="./js/component/sound-waves.js" defer></script>
   </head>
   <body>
     <div class="container">
       <div class="container-content">
-        <img src="https://lastfm.freetls.fastly.net/i/u/300x300/a4bbf73ba62024be279364e867b0ca20.jpg" class="album-cover">
-
-        <div class="listening-status">LAST PLAYED 7 MINUTES AGO</div>
+        <img src="" class="album-cover" id="album-cover">
+        <div class="listening-status" id="listening-status">{listening status}</div>
 
         <div class="sound-waves">
           <span class="sound-bar" id="sb1"></span>
@@ -20,16 +21,16 @@
           <span class="sound-bar" id="sb6"></span>
         </div>
 
-        <div class="track-title" id="track-title">She Came in Through the Bathroom Window&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;She Came in Through the Bathroom Window</div>
-        <div class="artist-name">The Beatles</div>
+        <div class="track-title" id="track-title">{title}</div>
+        <div class="artist-name" id="artist-name">{artist}</div>
 
         <hr class="separator">
 
-        <div class="user-stats">56 SCROBBLES SINCE 10 MAY 2024</div>
-        <div class="user-url">last.fm/user/upsetbit</div>
+        <div class="user-stats" id="user-stats">{user stats}</div>
+        <div class="user-url" id="user-url">{user url}</div>
       </div>
     </div>
 
-    <div class="powered-by">POWERED BY GITHUB.COM/UPSETBIT/LASTFM-WEBP-WIDGETS</div>
+    <div class="powered-by">powered by github.com/upsetbit/lastfm-webp-widgets</div>
   </body>
 </html>

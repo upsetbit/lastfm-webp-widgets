@@ -1,25 +1,25 @@
 @font-face {
-  font-family: 'Roboto';
-  src: url(fonts/Roboto-Regular.ttf) format('truetype');
+  font-family: 'roboto';
+  src: url(../font/roboto-regular.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: 'Roboto-Light';
-  src: url(fonts/Roboto-Light.ttf) format('truetype');
+  font-family: 'roboto-light';
+  src: url(../font/roboto-light.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: 'Roboto-Medium';
-  src: url(fonts/Roboto-Medium.ttf) format('truetype');
+  font-family: 'roboto-medium';
+  src: url(../font/roboto-medium.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: 'RobotoMono-Light';
-  src: url(fonts/RobotoMono-Light.ttf) format('truetype');
+  font-family: 'roboto-mono-light';
+  src: url(../font/roboto-mono-light.ttf) format('truetype');
 }
 
 body {
-  font-family: 'Roboto';
+  font-family: 'roboto';
   background-color: #0d1117;
   color: #e6edf3;
   margin: 0px;
@@ -50,10 +50,11 @@ body {
   letter-spacing: 3px;
   font-size: 15px;
   color: #717880;
+  text-transform: uppercase;
 }
 
 .track-title {
-  font-family: 'Roboto-Medium';
+  font-family: 'roboto-medium';
   font-size: 44px;
   width: 700px;
   margin-top: 30px;
@@ -63,23 +64,28 @@ body {
 }
 
 .artist-name {
-  font-family: 'Roboto-Light';
+  font-family: 'roboto-light';
   font-size: 38px;
   color: #8b949e;
+  width: 700px;
   margin-left: 190px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .user-stats {
-  font-family: 'Roboto';
+  font-family: 'roboto';
   font-size: 18px;
   margin-top: 2px;
   float: left;
   color: #8b949e;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .user-url {
-  font-family: 'RobotoMono-Light';
+  font-family: 'roboto-mono-light';
   font-size: 19px;
   color: #8b949e;
   float: right;
@@ -96,6 +102,7 @@ body {
   font-size: 12px;
   margin-left: 730px;
   color: #161b22;
+  text-transform: uppercase;
 }
 
 .sound-waves {
