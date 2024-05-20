@@ -27,7 +27,7 @@ class Music {
   }
 
   calcRequiredScrollTicks() {
-    return Math.ceil((Math.ceil(this.trackTitleSizeInPixels / this.scrollJump) + 5) / 2);
+    return Math.ceil((Math.ceil(this.trackTitleSizeInPixels / this.scrollJump) + 5) / 2) - 1;
   }
 
   tickScroll() {
@@ -47,7 +47,7 @@ class Music {
   /* -------------------------------------------------------------------------------------------- */
 
   setTrackTitle(title) {
-    this.trackTitle.textContent = title;
+    this.trackTitle.innerHTML = title;
     this.trackTitle.scroll(0, 0);
     this.refreshMeasurements();
 
@@ -69,7 +69,7 @@ class Music {
   /* -------------------------------------------------------------------------------------------- */
 
   setArtistName(name) {
-    this.artistName.textContent = name;
+    this.artistName.innerHTML = name;
     return name;
   }
 

@@ -18,10 +18,28 @@
   src: url(../font/roboto-mono-light.ttf) format('truetype');
 }
 
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1f2329;
+  --text-color-medium: #636c76;
+  --text-color-soft: #838e9a;
+  --text-color-softer: #aab8c4;
+  --container-bg-color: #f6f8fa;
+}
+
+.dark-mode:root {
+  --bg-color: #0d1117;
+  --text-color: #e6edf3;
+  --text-color-medium: #8b949e;
+  --text-color-soft: #717880;
+  --text-color-softer: #3d4246;
+  --container-bg-color: #161b22;
+}
+
 body {
   font-family: 'roboto';
-  background-color: #0d1117;
-  color: #e6edf3;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   margin: 0px;
 }
 
@@ -30,7 +48,7 @@ body {
   border-radius: 30px;
   height: 298px;
   width: 1080px;
-  background-color: #161b22;
+  background-color: var(--container-bg-color);
 }
 
 .container-content {
@@ -49,7 +67,7 @@ body {
   margin-left: 192px;
   letter-spacing: 3px;
   font-size: 15px;
-  color: #717880;
+  color: var(--text-color-soft);
   text-transform: uppercase;
 }
 
@@ -66,7 +84,7 @@ body {
 .artist-name {
   font-family: 'roboto-light';
   font-size: 38px;
-  color: #8b949e;
+  color: var(--text-color-medium);
   width: 700px;
   margin-left: 190px;
   overflow: hidden;
@@ -79,7 +97,7 @@ body {
   font-size: 18px;
   margin-top: 2px;
   float: left;
-  color: #8b949e;
+  color: var(--text-color-medium);
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -87,13 +105,13 @@ body {
 .user-url {
   font-family: 'roboto-mono-light';
   font-size: 19px;
-  color: #8b949e;
+  color: var(--text-color-medium);
   float: right;
   letter-spacing: 1px;
 }
 
 .separator {
-  border: 1px solid #e6edf3;
+  border: 1px solid var(--text-color);
   margin-top: 42px;
   margin-bottom: 12px;
 }
@@ -101,7 +119,7 @@ body {
 .powered-by {
   font-size: 12px;
   margin-left: 730px;
-  color: #161b22;
+  color: var(--container-bg-color);
   text-transform: uppercase;
 }
 
@@ -119,6 +137,6 @@ body {
   border-radius: 50px;
   height: 100%;
   width: 8px;
-  background-color: #3d4246;
+  background-color: var(--text-color-softer);
   margin-right: 4px;
 }

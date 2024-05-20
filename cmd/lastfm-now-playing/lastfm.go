@@ -2,8 +2,9 @@ package main
 
 import (
 	// internal
-	lastFmClientBuilder "github.com/upsetbit/lastfm-webp-widgets/internal/lastfm_builder"
 	"github.com/upsetbit/lastfm-webp-widgets/internal/util"
+
+	lastFmClientBuilder "github.com/upsetbit/lastfm-webp-widgets/internal/lastfm_builder"
 	L "github.com/upsetbit/lastfm-webp-widgets/pkg/client/lastfm"
 )
 
@@ -26,7 +27,15 @@ func getLastFmUserInfo() *L.LastFmUser {
 	}
 
 	d := data.User
-	log.Info("got authenticated user info", "username", d.Name, "realname", d.RealName, "scrobbles", d.PlayCount)
+	log.Info(
+		"got authenticated user info",
+		"username",
+		d.Name,
+		"realname",
+		d.RealName,
+		"scrobbles",
+		d.PlayCount,
+	)
 
 	return &d
 }
@@ -45,7 +54,13 @@ func getLastFmUserRecentTracks() *L.LastFmRecentTracks {
 	}
 
 	lastTrack := d.Track[0]
-	log.Info("got recent tracks", "artist_name", lastTrack.Artist.Text, "is_playing", util.BoolToYesOrNo(lastTrack.Attr.NowPlaying == "true"))
+	log.Info(
+		"got recent tracks",
+		"artist_name",
+		lastTrack.Artist.Text,
+		"is_playing",
+		util.BoolToYesOrNo(lastTrack.Attr.NowPlaying == "true"),
+	)
 
 	return &d
 }

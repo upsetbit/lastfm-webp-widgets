@@ -1,6 +1,7 @@
 package main
 
 import (
+	// internal
 	"github.com/upsetbit/lastfm-webp-widgets/pkg/log15-2.16.0"
 )
 

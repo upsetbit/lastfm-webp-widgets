@@ -4,9 +4,7 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 
 	// standard
-	"fmt"
 	"os"
-	"path/filepath"
 	"strconv"
 
 	// internal
@@ -15,7 +13,7 @@ import (
 
 func main() {
 	log.Info("program started")
-	// titleNeedsScroll := false
+	titleNeedsScroll := false
 
 	framedir, err := os.MkdirTemp("", "lastfm-now-playing-frames-*")
 	if err != nil {
@@ -43,7 +41,7 @@ func main() {
 	if getTrackTitleSizeInPixels() > TRACK_TITLE_MAX_SIZE_PIXELS {
 		log.Info("size is too long, making it scrollable")
 		setTrackTitleScrollable(lastTrack.Name)
-		// titleNeedsScroll = true
+		titleNeedsScroll = true
 	}
 
 	if lastTrack.Attr.NowPlaying == "true" {
@@ -58,16 +56,11 @@ func main() {
 
 	waitPageToLoad()
 
-	frames := []string{}
-	for i := 0; i < 10; i++ {
-		randomizeSoundWave()
-
-		ffp := filepath.Join(framedir, fmt.Sprintf("%d.png", i))
-		browser.TakeScreenshot(ffp)
-		frames = append(frames, ffp)
-		log.Info("took screenshot", "path", ffp)
+	if titleNeedsScroll {
+		animateWithScroll(framedir, getScrollTicksAmount())
+	} else {
+		animateSimple(framedir)
 	}
 
-	animate(frames, "playing-now.webp")
 	log.Info("program finished")
 }

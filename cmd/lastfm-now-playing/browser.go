@@ -33,6 +33,16 @@ func getTrackTitleSizeInPixels() int {
 	return size
 }
 
+func getScrollTicksAmount() int {
+	ticks := browser.
+		GetCurrentPage().
+		MustEval("() => music.getScrollTicksAmount()").
+		Int()
+
+	log.Info("got scroll ticks amount", "ticks", ticks)
+	return ticks
+}
+
 func setTrackTitle(title string) {
 	tt := browser.
 		GetCurrentPage().
@@ -65,6 +75,12 @@ func setAlbumCoverSource(src string) {
 		Str()
 
 	log.Info("album cover source setted", "src", cover)
+}
+
+func tickTitleTrackScroll() {
+	browser.
+		GetCurrentPage().
+		MustEval("() => music.tickScroll()")
 }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -111,6 +127,14 @@ func randomizeSoundWave() {
 	browser.
 		GetCurrentPage().
 		MustEval("() => waves.randomize()")
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+
+func setThemeMode(mode string) {
+	browser.
+		GetCurrentPage().
+		MustEval("(m) => theme.set(m)", mode)
 }
 
 /* ---------------------------------------------------------------------------------------------- */
