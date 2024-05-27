@@ -4,7 +4,6 @@ import (
 	// standard
 	"bytes"
 	"fmt"
-	"os"
 	"path/filepath"
 
 	// internal
@@ -134,6 +133,8 @@ func animate(frames []string, output string) {
 		panic(err)
 	}
 
-	os.WriteFile(output, buf.Bytes(), 0644)
+	uploadToBucket(output, bytes.NewReader(buf.Bytes()))
+	// os.WriteFile(output, buf.Bytes(), 0644)
+
 	log.Info("webp animation saved", "output", output)
 }

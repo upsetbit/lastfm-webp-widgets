@@ -24,6 +24,7 @@ func main() {
 	_, widgetPath := getWidgetLocation()
 	initBrowser(widgetPath)
 	initLastFmClient()
+	initS3Client()
 
 	lastFmUser := getLastFmUserInfo()
 	lastFmUserRecentTracks := getLastFmUserRecentTracks()

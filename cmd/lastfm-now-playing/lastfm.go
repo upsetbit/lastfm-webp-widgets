@@ -1,22 +1,45 @@
 package main
 
 import (
+	// standard
+	"fmt"
+	"os"
+
 	// internal
 	"github.com/upsetbit/lastfm-webp-widgets/internal/util"
-
-	lastFmClientBuilder "github.com/upsetbit/lastfm-webp-widgets/internal/lastfm_builder"
 	L "github.com/upsetbit/lastfm-webp-widgets/pkg/client/lastfm"
 )
 
-var lastfm *L.LastFmClient
+const (
+	env_LastFmUsername = "LASTFM_USERNAME"
+	env_LastFmAPIKey   = "LASTFM_API_KEY"
+)
+
+var (
+	lastfm *L.LastFmClient
+)
 
 func initLastFmClient() {
-	client, err := lastFmClientBuilder.Build()
+	lastfmUsername, envIsSet := os.LookupEnv(env_LastFmUsername)
+	if !envIsSet {
+		panic(fmt.Sprintf("unset env %s", env_LastFmUsername))
+	}
+
+	lastfmApiKey, envIsSet := os.LookupEnv(env_LastFmAPIKey)
+	if !envIsSet {
+		panic(fmt.Sprintf("unset env %s", env_LastFmAPIKey))
+	}
+
+	lastfmClient, err := L.New(L.LastFmClientOptions{
+		Username: lastfmUsername,
+		APIKey:   lastfmApiKey,
+	})
+
 	if err != nil {
 		panic(err)
 	}
 
-	lastfm = client
+	lastfm = lastfmClient
 	log.Info("lastfm client created", "username", lastfm.Username)
 }
 
