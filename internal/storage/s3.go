@@ -1,10 +1,12 @@
-package main
+//go:build save_s3
+
+package storage
 
 import (
 	// standard
+	"bytes"
 	"context"
 	"fmt"
-	"io"
 	"os"
 	"time"
 
@@ -14,6 +16,9 @@ import (
 	"github.com/aws/aws-sdk-go/aws/request"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+
+	// internal
+	. "github.com/upsetbit/lastfm-webp-widgets/internal/logger"
 )
 
 const (
@@ -25,7 +30,7 @@ var (
 	bucket *string
 )
 
-func initS3Client() {
+func Init() {
 	if b, ok := os.LookupEnv(S3_BUCKET_ENV_NAME); ok {
 		bucket = &b
 	} else {
@@ -39,7 +44,9 @@ func initS3Client() {
 	s3c = s3
 }
 
-func uploadToBucket(key string, data io.ReadSeeker) {
+func Save(key string, buf bytes.Buffer) {
+	data := bytes.NewReader(buf.Bytes())
+
 	ctx := context.Background()
 	ctx, cancelFunc := context.WithTimeout(ctx, 10*time.Second)
 	defer cancelFunc()
@@ -63,5 +70,5 @@ func uploadToBucket(key string, data io.ReadSeeker) {
 		panic(err)
 	}
 
-	log.Info("object uploaded", "bucket", *bucket, "key", key)
+	Log.Info("object uploaded", "bucket", *bucket, "key", key)
 }

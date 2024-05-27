@@ -3,6 +3,7 @@ module github.com/upsetbit/lastfm-webp-widgets
 go 1.22.3
 
 require (
+	github.com/aws/aws-lambda-go v1.47.0
 	github.com/aws/aws-sdk-go v1.53.5
 	github.com/go-rod/rod v0.116.0
 	github.com/go-stack/stack v1.8.1

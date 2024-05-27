@@ -7,6 +7,9 @@ import (
 	"path/filepath"
 
 	// internal
+	. "github.com/upsetbit/lastfm-webp-widgets/internal/logger"
+
+	"github.com/upsetbit/lastfm-webp-widgets/internal/storage"
 	"github.com/upsetbit/lastfm-webp-widgets/internal/util"
 	"github.com/upsetbit/lastfm-webp-widgets/pkg/webpanimation"
 )
@@ -25,7 +28,7 @@ func takeScreenshot(framedir string, counter int, tm string, frames *map[string]
 	browser.TakeScreenshot(ffp)
 
 	(*frames)[tm] = append((*frames)[tm], ffp)
-	log.Info("took screenshot", "type", "scroll", "mode", tm, "path", ffp)
+	Log.Info("took screenshot", "type", "scroll", "mode", tm, "path", ffp)
 }
 
 func animateWithScroll(framedir string, ticks int) {
@@ -133,8 +136,6 @@ func animate(frames []string, output string) {
 		panic(err)
 	}
 
-	uploadToBucket(output, bytes.NewReader(buf.Bytes()))
-	// os.WriteFile(output, buf.Bytes(), 0644)
-
-	log.Info("webp animation saved", "output", output)
+	storage.Save(output, buf)
+	Log.Info("webp animation saved")
 }

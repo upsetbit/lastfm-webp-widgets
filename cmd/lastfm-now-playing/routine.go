@@ -8,26 +8,40 @@ import (
 	"strconv"
 
 	// internal
+	. "github.com/upsetbit/lastfm-webp-widgets/internal/logger"
+
+	"github.com/upsetbit/lastfm-webp-widgets/internal/lastfm"
+	"github.com/upsetbit/lastfm-webp-widgets/internal/storage"
 	"github.com/upsetbit/lastfm-webp-widgets/internal/util"
 )
 
-func main() {
-	log.Info("program started")
+func doRoutine() {
+	Log.Info("program started")
 	titleNeedsScroll := false
 
-	framedir, err := os.MkdirTemp("", "lastfm-now-playing-frames-*")
+	framedir, err := os.MkdirTemp("/tmp", "frames-*")
 	if err != nil {
 		panic(err)
 	}
 	defer os.RemoveAll(framedir)
 
 	_, widgetPath := getWidgetLocation()
-	initBrowser(widgetPath)
-	initLastFmClient()
-	initS3Client()
+	Log.Info("got widget path", "path", widgetPath)
 
-	lastFmUser := getLastFmUserInfo()
-	lastFmUserRecentTracks := getLastFmUserRecentTracks()
+	Log.Info("initializing browser")
+	initBrowser(widgetPath)
+
+	Log.Info("initializing lastfm client")
+	lastfm.Init()
+
+	Log.Info("initializing storage")
+	storage.Init()
+
+	Log.Info("getting lastfm user info")
+	lastFmUser := lastfm.GetUserInfo()
+
+	Log.Info("getting lastfm user recent tracks")
+	lastFmUserRecentTracks := lastfm.GetUserRecentTracks()
 	if lastFmUserRecentTracks == nil {
 		return
 	}
@@ -40,7 +54,7 @@ func main() {
 	setAlbumCoverSource(lastTrack.Image[len(lastTrack.Image)-1].Text)
 
 	if getTrackTitleSizeInPixels() > TRACK_TITLE_MAX_SIZE_PIXELS {
-		log.Info("size is too long, making it scrollable")
+		Log.Info("size is too long, making it scrollable")
 		setTrackTitleScrollable(lastTrack.Name)
 		titleNeedsScroll = true
 	}
@@ -63,5 +77,5 @@ func main() {
 		animateSimple(framedir)
 	}
 
-	log.Info("program finished")
+	Log.Info("program finished")
 }

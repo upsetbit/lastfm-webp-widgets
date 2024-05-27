@@ -20,7 +20,7 @@ list:
 # build a specific target
 build target:
     @just _copy-assets {{ target }}
-    @cd cmd/{{ target }} && go build -o ../../bin/{{ target }}
+    @cd cmd/{{ target }} && go build -tags exec_local,save_s3 -o ../../bin/{{ target }}
     @echo "built {{ target }}"
 
 # build all targets

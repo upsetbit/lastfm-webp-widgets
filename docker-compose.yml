@@ -1,0 +1,13 @@
+services:
+  lambda:
+    container_name: lastfm-now-playing
+    image: lastfm-now-playing
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime-local
+    platform: linux/amd64
+    ports:
+      - 9000:8080
+    env_file:
+      - ./.env

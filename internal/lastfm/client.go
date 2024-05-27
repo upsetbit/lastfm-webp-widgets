@@ -1,4 +1,4 @@
-package main
+package lastfm
 
 import (
 	// standard
@@ -6,7 +6,9 @@ import (
 	"os"
 
 	// internal
+	. "github.com/upsetbit/lastfm-webp-widgets/internal/logger"
 	"github.com/upsetbit/lastfm-webp-widgets/internal/util"
+
 	L "github.com/upsetbit/lastfm-webp-widgets/pkg/client/lastfm"
 )
 
@@ -19,7 +21,7 @@ var (
 	lastfm *L.LastFmClient
 )
 
-func initLastFmClient() {
+func Init() {
 	lastfmUsername, envIsSet := os.LookupEnv(env_LastFmUsername)
 	if !envIsSet {
 		panic(fmt.Sprintf("unset env %s", env_LastFmUsername))
@@ -40,17 +42,17 @@ func initLastFmClient() {
 	}
 
 	lastfm = lastfmClient
-	log.Info("lastfm client created", "username", lastfm.Username)
+	Log.Info("lastfm client created", "username", lastfm.Username)
 }
 
-func getLastFmUserInfo() *L.LastFmUser {
+func GetUserInfo() *L.LastFmUser {
 	data, err := lastfm.GetUserInfo()
 	if err != nil {
 		panic(err)
 	}
 
 	d := data.User
-	log.Info(
+	Log.Info(
 		"got authenticated user info",
 		"username",
 		d.Name,
@@ -63,7 +65,7 @@ func getLastFmUserInfo() *L.LastFmUser {
 	return &d
 }
 
-func getLastFmUserRecentTracks() *L.LastFmRecentTracks {
+func GetUserRecentTracks() *L.LastFmRecentTracks {
 	data, err := lastfm.GetRecentTracks()
 	if err != nil {
 		panic(err)
@@ -71,13 +73,13 @@ func getLastFmUserRecentTracks() *L.LastFmRecentTracks {
 
 	d := data.RecentTracks
 	if len(d.Track) == 0 {
-		log.Warn("user has not listened to any tracks yet")
-		log.Info("nothing to do; exiting")
+		Log.Warn("user has not listened to any tracks yet")
+		Log.Info("nothing to do; exiting")
 		return nil
 	}
 
 	lastTrack := d.Track[0]
-	log.Info(
+	Log.Info(
 		"got recent tracks",
 		"artist_name",
 		lastTrack.Artist.Text,

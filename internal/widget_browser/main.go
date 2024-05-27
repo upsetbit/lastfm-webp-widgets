@@ -7,20 +7,22 @@ import (
 	// 3rd-party
 	"github.com/go-rod/rod"
 	"github.com/go-rod/rod/lib/devices"
+	"github.com/go-rod/rod/lib/launcher"
 	"github.com/go-rod/rod/lib/proto"
 )
 
 /* ---------------------------------------------------------------------------------------------- */
 
 type Browser struct {
+	launcher    *launcher.Launcher
 	client      *rod.Browser
 	currentPage *rod.Page
 }
 
 func New(width int, height int, pixelRatio float64) *Browser {
-	client := rod.New().MustConnect()
+	l, c := getBrowser()
 
-	client.DefaultDevice(devices.Device{
+	c.DefaultDevice(devices.Device{
 		Title: "LastFM WebP Widgets",
 		Screen: devices.Screen{
 			Vertical:         devices.ScreenSize{Width: width, Height: height},
@@ -28,7 +30,9 @@ func New(width int, height int, pixelRatio float64) *Browser {
 		},
 	})
 
-	return &Browser{client, nil}
+	c = c.MustConnect()
+
+	return &Browser{l, c, nil}
 }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -42,7 +46,8 @@ func (b *Browser) GetCurrentPage() *rod.Page {
 }
 
 func (b *Browser) Close() {
-	b.client.MustClose()
+	b.launcher.Cleanup()
+	b.launcher.Kill()
 }
 
 /* ---------------------------------------------------------------------------------------------- */
