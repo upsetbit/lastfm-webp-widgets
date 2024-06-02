@@ -1,0 +1,8 @@
+{
+  "gopls": {
+    "build.buildFlags": [
+      "-tags",
+      "exec_local save_disk"
+    ],
+  }
+}
