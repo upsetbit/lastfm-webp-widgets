@@ -1,4 +1,4 @@
-# Last.fm WebP Widget
+# Last.fm WebP Widgets
 
 ## Now Playing
 
