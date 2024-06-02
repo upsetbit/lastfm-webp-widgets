@@ -30,7 +30,7 @@ var (
 	bucket *string
 )
 
-func Init() {
+func storageInit() {
 	if b, ok := os.LookupEnv(S3_BUCKET_ENV_NAME); ok {
 		bucket = &b
 	} else {
@@ -44,7 +44,7 @@ func Init() {
 	s3c = s3
 }
 
-func Save(key string, buf bytes.Buffer) {
+func storageSave(key string, buf bytes.Buffer) {
 	data := bytes.NewReader(buf.Bytes())
 
 	ctx := context.Background()

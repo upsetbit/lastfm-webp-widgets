@@ -11,9 +11,9 @@ import (
 	. "github.com/upsetbit/lastfm-webp-widgets/internal/logger"
 )
 
-func Init() {}
+func storageInit() {}
 
-func Save(output string, data bytes.Buffer) {
+func storageSave(output string, data bytes.Buffer) {
 	os.WriteFile(output, data.Bytes(), 0644)
 	Log.Info("file created", "path", output)
 }
