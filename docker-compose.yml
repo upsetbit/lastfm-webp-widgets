@@ -5,9 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: runtime-local
+      target: local-runtime
     platform: linux/amd64
-    ports:
-      - 9000:8080
     env_file:
       - ./.env
